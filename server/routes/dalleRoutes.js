@@ -21,27 +21,25 @@ router.post('/', async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    // Log the prompt to ensure it's being sent correctly
-    console.log('Received prompt:', prompt);
-
     // Generate the image from the prompt
     const aiResponse = await openai.images.generate({
+      model: "dall-e-2",
       prompt: prompt,
       n: 1,
-      size: '1024x1024',
+      size: '512x512',
     });
 
     // Log the entire response from OpenAI
     console.log('AI Response:', aiResponse);
 
     // Extract the base64 image from the response
-    const image = aiResponse.data[0].image;
+    const imageUrl = aiResponse.data[0].url;
 
     // Log the base64 image to check if it's correctly extracted
-    console.log('Generated Image:', image);
+    console.log('Generated Image:', imageUrl);
 
     // Send the base64 image back to the client
-    res.status(200).json({ photo: image });
+    res.status(200).json({ photo: imageUrl });
   } catch (error) {
     // Log the error for debugging
     console.error('Error generating image:', error);
