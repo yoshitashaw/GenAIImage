@@ -9,8 +9,10 @@ dotenv.config();   //pulls the environment varialble from .env file
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend origin
+    origin: 'http://localhost:5173', // the frontend origin
+    credentials: true,
   }));    //middleware
+
 app.use(express.json({ limit: '50mb'}));
 
 //adding the middleware

@@ -59,9 +59,9 @@ function CreatePost() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(form)
+            body: JSON.stringify({ ...form})
           }
-        )
+        );
         await response.json();
         navigate('/');
       }

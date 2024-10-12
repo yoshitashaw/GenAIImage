@@ -8,22 +8,49 @@ dotenv.config();
 
 const router = express.Router();
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-})
+//CLOUDINARY CONFIGURATION
+// cloudinary.config({
+//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//     api_key: process.env.CLOUDINARY_API_KEY,
+//     api_secret: process.env.CLOUDINARY_API_SECRET,
+// })
+
+try {
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+  } 
+  catch (error) {
+    console.error('Cloudinary configuration error:', error);
+  }
 
 //GET ALL POSTS
-router.route('/').get(async(req, res) =>{
-    try{
-        const posts = await Post.find({});
-        res.status(200).json({ success: true, data: posts})
+// router.route('/').get(async(req, res) =>{
+//     try{
+//         const posts = await Post.find({});
+//         if (!posts) {
+//             return res.status(404).json({ success: false, message: 'No posts found' });
+//         }
+//         res.status(200).json({ success: true, data: posts})
+//     }
+//     catch (error){
+//         res.status(500).json({ success: false, message: error})
+//     }
+// });
+
+router.route('/').get(async (req, res) => {
+    try {
+      const posts = await Post.find({});
+      res.status(200).json({ success: true, data: posts });
+    } 
+    catch (error) {
+      console.error("Error fetching posts:", error.message);
+      res.status(500).json({ success: false, message: error.message });
     }
-    catch (error){
-        res.status(500).json({ success: false, message: error})
-    }
-});
+  });
+  
 
 //CREATE A POST
 router.route('/').post(async(req, res) =>{
@@ -39,7 +66,7 @@ router.route('/').post(async(req, res) =>{
         res.status(201).json({ success: true, data: newPost });
     }
     catch (error){
-        res.status(500).json({ success: false, message: error })
+        res.status(500).json({ success: false, message: error });
     }
 });
 

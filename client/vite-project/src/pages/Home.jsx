@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, FormField, Loader } from "../components";
 //import VideoBackground from '../components/VideoBackground';
 
@@ -18,6 +18,35 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
   const [searchText, setSearchText] = useState('');
+
+    const fetchPosts = async() =>{
+      setLoading(true);
+
+      try{
+        const response = await fetch('http://localhost:8080/api/v1/post',{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if(response.ok){
+          const result = await response.json();
+          setAllPosts(result.data.reverse());  //reversing to bring the latest post on the top
+        }
+      }
+      catch (error){
+        console.error('Error fetching posts:', error);
+        alert('Failed to fetch posts. Please try again later.');
+      }
+      finally{
+        setLoading(false);  //stop loading
+      }
+    };
+
+    useEffect(() =>{
+      fetchPosts();   //function call
+    }, []);
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -51,7 +80,7 @@ function Home() {
               {searchText ? (
                 <RenderCards data={[]} title="No search results found!" />
               ) : (
-                <RenderCards data={[]} title="No posts found!" />
+                <RenderCards data={ allPosts } title="No posts found!" />
               )}
             </div>
           </>
