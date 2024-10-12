@@ -4,7 +4,7 @@ import { Card, FormField, Loader } from "../components";
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
-    return data.map((post) => <Card key={post._id} {...post} />);
+    return data.map((post) => <Card key={post._id} title={post.name} image={post.photo} />);
   }
 
   return (
@@ -19,34 +19,35 @@ function Home() {
   const [allPosts, setAllPosts] = useState(null);
   const [searchText, setSearchText] = useState('');
 
-    const fetchPosts = async() =>{
-      setLoading(true);
+  const fetchPosts = async () => {
+    setLoading(true);
 
-      try{
-        const response = await fetch('http://localhost:8080/api/v1/post',{
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/post', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if(response.ok){
-          const result = await response.json();
-          setAllPosts(result.data.reverse());  //reversing to bring the latest post on the top
-        }
+      if (response.ok) {
+        const result = await response.json();
+        console.log('result ', result.data.reverse())
+        setAllPosts(result.data.reverse());  //reversing to bring the latest post on the top
       }
-      catch (error){
-        console.error('Error fetching posts:', error);
-        alert('Failed to fetch posts. Please try again later.');
-      }
-      finally{
-        setLoading(false);  //stop loading
-      }
-    };
+    }
+    catch (error) {
+      console.error('Error fetching posts:', error);
+      alert('Failed to fetch posts. Please try again later.');
+    }
+    finally {
+      setLoading(false);  //stop loading
+    }
+  };
 
-    useEffect(() =>{
-      fetchPosts();   //function call
-    }, []);
+  useEffect(() => {
+    fetchPosts();   //function call
+  }, []);
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -80,7 +81,7 @@ function Home() {
               {searchText ? (
                 <RenderCards data={[]} title="No search results found!" />
               ) : (
-                <RenderCards data={ allPosts } title="No posts found!" />
+                <RenderCards data={allPosts} title="No posts found!" />
               )}
             </div>
           </>
