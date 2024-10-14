@@ -3,4 +3,4 @@ Give you imagination a platform to showcase the creative and artistic mind. Gene
 Here are some screenshots of the running project.
 ![Project Screenshot](client/vite-project/src/assets/readme1.jpg)
 ![Project Screenshot](client/vite-project/src/assets/readme2.jpg)
-![Project Screenshot](client/vite-project/src/assetsreadme3.jpg)
+![Project Screenshot](client/vite-project/src/assets/readme3.jpg)
