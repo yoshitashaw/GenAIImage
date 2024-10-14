@@ -1,0 +1,41 @@
+/* Starry background effect */
+.starry-background {
+    background: url('client\vite-project\src\assets\background.png') repeat;
+    animation: stars 100s linear infinite;
+    z-index: 0;
+    opacity: 0.5;
+  }
+  
+  /* Starry animation */
+  @keyframes stars {
+    from { background-position: 0 0; }
+    to { background-position: 10000px 10000px; }
+  }
+  
+  /* Glowing image effect */
+  .glow-image {
+    width: 900px; 
+    height: auto; 
+    border-radius: 70%; 
+    box-shadow: 0 0 60px 20px rgba(173, 216, 230, 1), 
+                0 0 90px 40px rgba(173, 216, 230, 0.7), 
+                0 0 120px 60px rgba(173, 216, 230, 0.4); /*Adjust glow */
+    background-color: transparent;
+  }
+
+  /* Bouncy animation for the h1 */
+@keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px); /* Adjust the bounce height */
+    }
+  }
+  
+  /* Applying the animation to the h1 tag */
+  .bouncy-text {
+    animation: bounce 3s ease-in-out infinite; /* Adjust speed and style */
+  }
+  
+  

@@ -27,19 +27,6 @@ try {
   }
 
 //GET ALL POSTS
-// router.route('/').get(async(req, res) =>{
-//     try{
-//         const posts = await Post.find({});
-//         if (!posts) {
-//             return res.status(404).json({ success: false, message: 'No posts found' });
-//         }
-//         res.status(200).json({ success: true, data: posts})
-//     }
-//     catch (error){
-//         res.status(500).json({ success: false, message: error})
-//     }
-// });
-
 router.route('/').get(async (req, res) => {
     try {
       const posts = await Post.find({});
@@ -59,9 +46,9 @@ router.route('/').post(async(req, res) =>{
         const photoUrl = await cloudinary.uploader.upload(photo);
 
         const newPost = await Post.create({
-            name, 
-            prompt,
-            photo: photoUrl.url, 
+          name, 
+          prompt,
+          photo: photoUrl.url, 
         })
         res.status(201).json({ success: true, data: newPost });
     }
