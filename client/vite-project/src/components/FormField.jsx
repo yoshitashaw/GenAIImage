@@ -1,10 +1,10 @@
 import React from 'react';
 
-function FormField({ labelName, type, name, placeholder, value, handleChange, isSurpriseMe, handleSurpriseMe }) {
+function FormField({ labelName, type, name, placeholder, value, handleChange, isSurpriseMe, handleSurpriseMe, labelClass }) {
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-900">
+        <label htmlFor={name} className={`block text-sm font-medium ${labelClass || 'text-gray-900'}`}>
           {labelName}
         </label>
 
